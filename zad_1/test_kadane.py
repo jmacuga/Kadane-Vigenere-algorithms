@@ -43,5 +43,3 @@ def test_kadane_EmptyArrayError():
     array = []
     with pytest.raises(EmptyArrayError):
         kadane(array=array)
-
-
