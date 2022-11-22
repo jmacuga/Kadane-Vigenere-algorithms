@@ -1,5 +1,6 @@
 
 from vigenere import EmptyStringError, InvalidLetterError, encrypt_vigenere2, is_correct, decrypt_vigenere2
+from vigenere import get_encoded_letter, get_reversed_letter
 import pytest
 
 
@@ -44,6 +45,54 @@ def test_is_correct_symbol_pass():
     plaintext = "Z"
     is_correct(key)
     is_correct(plaintext)
+
+
+def test_get_encoded_letter_one_letter():
+    key = 'A'
+    plaintext = "Z"
+    assert get_encoded_letter(plaintext, key, 0, 1) == 'Z'
+
+
+def test_get_encoded_letter_one_letter2():
+    key = 'P'
+    plaintext = "H"
+    assert get_encoded_letter(plaintext, key, 0, 1) == 'W'
+
+
+def test_get_encoded_letter_word():
+    key = 'KEY'
+    plaintext = "HASLO"
+    position = 3
+    assert get_encoded_letter(
+        plaintext[position], key, position, len(key)) == 'V'
+
+
+def test_get_encoded_letter_word2():
+    key = 'KEY'
+    plaintext = "HASLO"
+    position = 1
+    assert get_encoded_letter(
+        plaintext[position], key, position, len(key)) == 'E'
+
+
+def test_get_reversed_letter():
+    key = 'K'
+    assert get_reversed_letter(key) == 'Q'
+
+
+def test_get_reversed_letter2():
+    key = 'A'
+    assert get_reversed_letter(key) == 'A'
+
+
+def test_get_reversed_letter3():
+    key = 'Z'
+    assert get_reversed_letter(key) == 'B'
+
+
+def test_get_reversed_letter4():
+    key = 'R'
+    assert get_reversed_letter(key) == 'J'
 
 
 def test_encrypt_vigenere2_empty_key():

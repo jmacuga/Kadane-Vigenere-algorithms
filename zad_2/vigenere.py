@@ -29,6 +29,10 @@ def get_encoded_letter(letter, key, position, key_len):
     return chr((ord(letter) + ord(key[position % key_len]) - 2*ord("A")) % 26 + ord('A'))
 
 
+def get_reversed_letter(letter):
+    return chr((26 - ord(letter) + ord('A')) % 26 + ord('A'))
+
+
 def encrypt_vigenere2(key, plaintext):
     is_correct(key)
     is_correct(plaintext)
@@ -47,7 +51,5 @@ def encrypt_vigenere2(key, plaintext):
 
 def decrypt_vigenere2(key, ciphertext):
     key.replace(" ", "")
-    reversed = ""
-    for letter in key:
-        reversed += chr((26 - ord(letter) + ord('A')) % 26 + ord('A'))
-    return encrypt_vigenere2(reversed, ciphertext)
+    reversed_key = "".join([get_reversed_letter(letter) for letter in key])
+    return encrypt_vigenere2(reversed_key, ciphertext)
