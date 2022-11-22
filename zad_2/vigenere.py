@@ -1,5 +1,10 @@
-class LenghtError(Exception):
-    pass
+class EmptyStringError(Exception):
+    def __init__(self, message="Argument string cannot be empty"):
+        self.message = message
+        super().__init__(self.message)
+
+    def __str__(self):
+        return f'{self.message}'
 
 
 class InvalidLetterError(Exception):
@@ -8,7 +13,7 @@ class InvalidLetterError(Exception):
 
 def is_correct(word):
     if len(word) == 0:
-        raise LenghtError
+        raise EmptyStringError
     for letter in word:
         if not (ord(letter) in range(65, 91) or letter == " "):
             raise InvalidLetterError(word)

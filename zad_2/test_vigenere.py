@@ -1,19 +1,19 @@
 
-from vigenere import LenghtError, InvalidLetterError, encrypt_vigenere2, is_correct, decrypt_vigenere2
+from vigenere import EmptyStringError, InvalidLetterError, encrypt_vigenere2, is_correct, decrypt_vigenere2
 import pytest
 
 
 def test_is_correct_empty_key():
     key = ""
     plaintext = "SIEMA"
-    with pytest.raises(LenghtError):
+    with pytest.raises(EmptyStringError):
         is_correct(key)
 
 
 def test_is_correct_empty_text():
     key = "KEY"
     plaintext = ""
-    with pytest.raises(LenghtError):
+    with pytest.raises(EmptyStringError):
         is_correct(plaintext)
 
 
@@ -48,7 +48,7 @@ def test_is_correct_symbol_pass():
 def test_encrypt_vigenere2_empty_key():
     key = ""
     plaintext = "SIEMA"
-    with pytest.raises(LenghtError):
+    with pytest.raises(EmptyStringError):
         encrypt_vigenere2(key, plaintext)
 
 
