@@ -5,13 +5,11 @@ import pytest
 
 def test_is_correct_empty_key():
     key = ""
-    plaintext = "SIEMA"
     with pytest.raises(EmptyStringError):
         is_correct(key)
 
 
 def test_is_correct_empty_text():
-    key = "KEY"
     plaintext = ""
     with pytest.raises(EmptyStringError):
         is_correct(plaintext)
@@ -19,23 +17,26 @@ def test_is_correct_empty_text():
 
 def test_is_correct_lowercase1():
     key = "a"
-    plaintext = ""
     with pytest.raises(InvalidLetterError):
         is_correct(key)
 
 
-def test_is_correct_lowercase2():
-    key = "z"
-    plaintext = ""
+def test_is_correct_invalid_symbol():
+    key = "ź"
     with pytest.raises(InvalidLetterError):
         is_correct(key)
 
 
 def test_is_correct_symbol():
     key = ";"
-    plaintext = ""
     with pytest.raises(InvalidLetterError):
         is_correct(key)
+
+
+def test_is_correct_polish_letter():
+    plaintext = "Ż"
+    with pytest.raises(InvalidLetterError):
+        is_correct(plaintext)
 
 
 def test_is_correct_symbol_pass():
