@@ -1,5 +1,5 @@
 
-from vigenere import EmptyStringError, InvalidLetterError, encrypt_vigenere2, is_correct, decrypt_vigenere2
+from vigenere import EmptyStringError, InvalidLetterError, encrypt_vigenere, is_correct, decrypt_vigenere
 from vigenere import get_encoded_letter, get_reversed_letter
 import pytest
 
@@ -95,50 +95,50 @@ def test_get_reversed_letter4():
     assert get_reversed_letter(key) == 'J'
 
 
-def test_encrypt_vigenere2_empty_key():
+def test_encrypt_vigenere_empty_key():
     key = ""
     plaintext = "SIEMA"
     with pytest.raises(EmptyStringError):
-        encrypt_vigenere2(key, plaintext)
+        encrypt_vigenere(key, plaintext)
 
 
 def test_encrypt_vigenere_one_letter():
     key = "K"
     plaintext = "L"
-    assert encrypt_vigenere2(key, plaintext) == "V"
+    assert encrypt_vigenere(key, plaintext) == "V"
 
 
 def test_encrypt_vigenere_same_len():
     key = "KEY"
     plaintext = "LEN"
-    assert encrypt_vigenere2(key, plaintext) == "VIL"
+    assert encrypt_vigenere(key, plaintext) == "VIL"
 
 
 def test_encrypt_vigenere_longer_text():
     key = "KEY"
     plaintext = "LENGTH"
-    assert encrypt_vigenere2(key, plaintext) == "VILQXF"
+    assert encrypt_vigenere(key, plaintext) == "VILQXF"
 
 
 def test_decrypt_vigenere_one_letter():
     key = "T"
     ciphertext = "M"
-    assert decrypt_vigenere2(key, ciphertext) == "T"
+    assert decrypt_vigenere(key, ciphertext) == "T"
 
 
 def test_decrypt_vigenere_word():
     key = "TAJNE"
     ciphertext = "MOSRWM"
-    assert decrypt_vigenere2(key, ciphertext) == "TOJEST"
+    assert decrypt_vigenere(key, ciphertext) == "TOJEST"
 
 
 def test_encode_spaces():
     text = "TOJEST BARDZO TAJNY TEKST"
     key = "TAJNE"
-    assert encrypt_vigenere2(key, text) == "MOSRWM BJEHSO CNNGY CROLT"
+    assert encrypt_vigenere(key, text) == "MOSRWM BJEHSO CNNGY CROLT"
 
 
 def test_decode_spaces():
     cipher = "MOSRWM BJEHSO CNNGY CROLT"
     key = "TAJNE"
-    assert decrypt_vigenere2(key, cipher) == "TOJEST BARDZO TAJNY TEKST"
+    assert decrypt_vigenere(key, cipher) == "TOJEST BARDZO TAJNY TEKST"

@@ -33,7 +33,7 @@ def get_reversed_letter(letter):
     return chr((26 - ord(letter) + ord('A')) % 26 + ord('A'))
 
 
-def encrypt_vigenere2(key, plaintext):
+def encrypt_vigenere(key, plaintext):
     is_correct(key)
     is_correct(plaintext)
     key.replace(" ", "")
@@ -49,7 +49,7 @@ def encrypt_vigenere2(key, plaintext):
     return encrypted
 
 
-def decrypt_vigenere2(key, ciphertext):
+def decrypt_vigenere(key, ciphertext):
     key.replace(" ", "")
     reversed_key = "".join([get_reversed_letter(letter) for letter in key])
-    return encrypt_vigenere2(reversed_key, ciphertext)
+    return encrypt_vigenere(reversed_key, ciphertext)
