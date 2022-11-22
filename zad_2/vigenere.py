@@ -8,7 +8,13 @@ class EmptyStringError(Exception):
 
 
 class InvalidLetterError(Exception):
-    pass
+    def __init__(self, word, message="Only capital letters form latin alhabet are acceptable"):
+        self.word = word
+        self.message = message
+        super().__init__(self.message)
+
+    def __str__(self):
+        return f'{self.message}'
 
 
 def is_correct(word):
@@ -19,19 +25,22 @@ def is_correct(word):
             raise InvalidLetterError(word)
 
 
+def get_encoded_letter(letter, key, position, key_len):
+    return chr((ord(letter) + ord(key[position % key_len]) - 2*ord("A")) % 26 + ord('A'))
+
+
 def encrypt_vigenere2(key, plaintext):
     is_correct(key)
-    key.replace(" ", "")
     is_correct(plaintext)
+    key.replace(" ", "")
     encrypted = ""
-    key_len = len(key)
     i = 0
     for letter in plaintext:
         if letter == " ":
             encrypted += " "
         else:
-            encrypted += chr((ord(letter) +
-                              ord(key[i % key_len]) - 2*ord("A")) % 26 + ord('A'))
+            encrypted += get_encoded_letter(letter, key, i, len(key))
+            # i increments only if letter is not a space
             i += 1
     return encrypted
 
