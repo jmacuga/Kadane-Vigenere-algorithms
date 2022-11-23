@@ -16,23 +16,23 @@ class InvalidLetterError(Exception):
         return f'{self.message}'
 
 
-def is_correct(word):
+def is_correct(word: str):
     if len(word) == 0:
         raise EmptyStringError
     for letter in word:
         if not (ord(letter) in range(65, 91) or letter == " "):
-            raise InvalidLetterError(word)
+            raise InvalidLetterError()
 
 
-def get_encoded_letter(letter, key, position, key_len):
+def get_encoded_letter(letter: str, key: str, position: int, key_len: int) -> str:
     return chr((ord(letter) + ord(key[position % key_len]) - 2*ord("A")) % 26 + ord('A'))
 
 
-def get_reversed_letter(letter):
+def get_reversed_letter(letter: str) -> str:
     return chr((26 - ord(letter) + ord('A')) % 26 + ord('A'))
 
 
-def encrypt_vigenere(key, plaintext):
+def encrypt_vigenere(key: str, plaintext: str) -> str:
     is_correct(key)
     is_correct(plaintext)
     key.replace(" ", "")
@@ -48,7 +48,7 @@ def encrypt_vigenere(key, plaintext):
     return encrypted
 
 
-def decrypt_vigenere(key, ciphertext):
+def decrypt_vigenere(key: str, ciphertext: str) -> str:
     key.replace(" ", "")
     reversed_key = "".join([get_reversed_letter(letter) for letter in key])
     return encrypt_vigenere(reversed_key, ciphertext)
