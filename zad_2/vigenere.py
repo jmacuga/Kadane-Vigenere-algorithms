@@ -8,8 +8,7 @@ class EmptyStringError(Exception):
 
 
 class InvalidLetterError(Exception):
-    def __init__(self, word, message="Only capital letters form latin alhabet are acceptable"):
-        self.word = word
+    def __init__(self, message="Only capital letters form latin alhabet are acceptable"):
         self.message = message
         super().__init__(self.message)
 
